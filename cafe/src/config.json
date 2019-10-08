@@ -1,0 +1,4 @@
+{
+  "image-server": "http://cafe-env.7psybcqbju.eu-central-1.elasticbeanstalk.com",
+  "graphqlAPI": "https://api-euwest.graphcms.com/v1/ck1gstue61ilu01c07or97oc7/master"
+}
