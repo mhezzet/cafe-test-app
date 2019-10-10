@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route, Redirect } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Form from './pages/Form'
 import NotFound from './pages/NotFound'
@@ -13,9 +13,9 @@ function App() {
       <Router history={history}>
         <Switch>
           <Route path='/' exact component={Landing} />
-          <Route path='/create' exact component={Form} />
-          <Route path='/update/:id' exact component={Form} />
-          <Route component={NotFound} />
+          <Route path='/404' exact component={NotFound} />
+          <Route path='/:type' exact component={Form} />
+          <Route path='/:type/:id' exact component={Form} />
         </Switch>
       </Router>
     </>

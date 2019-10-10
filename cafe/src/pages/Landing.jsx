@@ -16,8 +16,6 @@ export default function Landing() {
     )
   if (error) return <div>{error.message}</div>
 
-  console.log(data.items)
-
   return (
     <div className='container mt-5'>
       <div className='d-flex justify-content-between align-items-center'>
