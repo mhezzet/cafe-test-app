@@ -1,11 +1,30 @@
 import React from 'react'
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 import Card from '../components/Card'
 import history from '../history'
 
 export default function Landing() {
   const { data, error, loading } = useQuery(ITEMS)
+  const [deleteItem] = useMutation(DELET_ITEM)
+
+  const deleteItemHandler = id => {
+    deleteItem({
+      variables: { id },
+      update(proxy) {
+        const { items } = proxy.readQuery({ query: ITEMS })
+        const newItems = [...items]
+        const itemIndex = newItems.findIndex(item => item.id === id)
+
+        newItems.splice(itemIndex, 1)
+
+        proxy.writeQuery({
+          query: ITEMS,
+          data: { items: newItems }
+        })
+      }
+    })
+  }
 
   if (loading)
     return (
@@ -31,7 +50,11 @@ export default function Landing() {
       </div>
       <div className='d-flex flex-wrap justify-content-center mt-4'>
         {data.items.map(item => (
-          <Card key={item.id} item={item} />
+          <Card
+            key={item.id}
+            onDelete={() => deleteItemHandler(item.id)}
+            item={item}
+          />
         ))}
       </div>
     </div>
@@ -40,7 +63,7 @@ export default function Landing() {
 
 export const ITEMS = gql`
   query {
-    items {
+    items(orderBy: updatedAt_DESC) {
       id
       name
       price
@@ -50,6 +73,17 @@ export const ITEMS = gql`
         url
         key
       }
+    }
+  }
+`
+
+const DELET_ITEM = gql`
+  mutation deleteItem($id: ID!) {
+    deleteItem(where: { id: $id }) {
+      id
+      name
+      price
+      type
     }
   }
 `
