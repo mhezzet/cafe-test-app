@@ -2,6 +2,7 @@ import React from 'react'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import Card from '../components/Card'
+import history from '../history'
 
 export default function Landing() {
   const { data, error, loading } = useQuery(ITEMS)
@@ -20,7 +21,11 @@ export default function Landing() {
     <div className='container mt-5'>
       <div className='d-flex justify-content-between align-items-center'>
         <h5 className='mx-4'>Menu</h5>
-        <button type='button' className='btn btn-primary mx-4'>
+        <button
+          onClick={() => history.push('/create')}
+          type='button'
+          className='btn btn-primary mx-4'
+        >
           Add menu item
         </button>
       </div>
@@ -33,7 +38,7 @@ export default function Landing() {
   )
 }
 
-const ITEMS = gql`
+export const ITEMS = gql`
   query {
     items {
       id

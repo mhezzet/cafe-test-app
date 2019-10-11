@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Field, Form, Formik } from 'formik'
 import * as yup from 'yup'
 
@@ -13,15 +13,24 @@ export default function ItemForm({
   onSubmit,
   type = 'create'
 }) {
-  const [photo, setPhoto] = useState(() =>
-    type === 'edit' ? initialValues.photo : null
-  )
+  const [photo, setPhoto] = useState(null)
   const [photoTouched, setPhotoTouched] = useState(false)
+
+  useEffect(() => {
+    if (type === 'edit' && initialValues) setPhoto(initialValues.item.photo)
+  }, [initialValues])
+
+  console.log('man', initialValues)
 
   return (
     <Formik
+      enableReinitialize
       initialValues={
-        initialValues || { name: '', price: '', type: 'MAIN_COURSE' }
+        (initialValues && initialValues.item) || {
+          name: '',
+          price: '',
+          type: 'MAIN_COURSE'
+        }
       }
       validationSchema={localSchema}
       onSubmit={(values, { setSubmitting }) => {
