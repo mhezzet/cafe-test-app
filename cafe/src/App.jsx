@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Switch, Route, Redirect } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Form from './pages/Form'
 import NotFound from './pages/NotFound'

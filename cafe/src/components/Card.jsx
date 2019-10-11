@@ -4,7 +4,7 @@ import history from '../history'
 const itemEnumToString = enumr => (enumr !== 'SIDE' ? 'MAIN COURSE' : enumr)
 
 const Card = ({ item, onDelete }) => (
-  <div className='card m-4 rounded-0 shadow-sm' style={{ width: '20rem' }}>
+  <div className='card m-4 rounded-0 shadow-sm' style={{ width: 435 }}>
     <img
       style={{ height: 300, objectFit: 'cover' }}
       src={item.photo.url}
@@ -14,10 +14,14 @@ const Card = ({ item, onDelete }) => (
     <div className='card-body position-relative'>
       <div className='d-flex justify-content-between align-items-center '>
         <div>
-          <div>{itemEnumToString(item.type)}</div>
-          <div>{item.name}</div>
+          <div style={{ fontWeight: 'bold', fontSize: 18, color: '#7c7e89' }}>
+            {itemEnumToString(item.type)}
+          </div>
+          <div style={{ fontSize: 23, fontWeight: 'bold', color: '#4D4f5c' }}>
+            {item.name}
+          </div>
         </div>
-        <div>{item.price} $</div>
+        <div style={{ fontSize: 22, color: '#33343894' }}>${item.price}</div>
       </div>
     </div>
     <div

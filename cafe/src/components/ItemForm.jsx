@@ -18,9 +18,7 @@ export default function ItemForm({
 
   useEffect(() => {
     if (type === 'edit' && initialValues) setPhoto(initialValues.item.photo)
-  }, [initialValues])
-
-  console.log('man', initialValues)
+  }, [initialValues, type])
 
   return (
     <Formik
@@ -45,6 +43,9 @@ export default function ItemForm({
     >
       {({ isSubmitting }) => (
         <Form>
+          <div style={{ fontSize: 28 }} className='my-4'>
+            {type === 'edit' ? 'Edit Menu Item' : 'Add Menu Item'}
+          </div>
           <Field
             name='type'
             render={({ field, form: { isSubmitting } }) => (
@@ -134,7 +135,11 @@ export default function ItemForm({
             </label>
             <div className='col-sm-10'>
               <div>
-                <label htmlFor='photo' className='btn btn-primary'>
+                <label
+                  htmlFor='photo'
+                  style={{ backgroundColor: '#3b86ff', borderColor: '#3b86ff' }}
+                  className='btn btn-primary'
+                >
                   Choose Photo
                 </label>
                 <input
@@ -157,6 +162,12 @@ export default function ItemForm({
             <button
               disabled={isSubmitting}
               type='submit'
+              style={{
+                backgroundColor: '#3b86ff',
+                borderColor: '#3b86ff',
+                marginTop: 50,
+                marginLeft: 20
+              }}
               className='btn btn-primary'
             >
               {type === 'create' ? 'Save Item' : 'Edit Item'}

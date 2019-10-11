@@ -15,7 +15,7 @@ export default function Form(props) {
 
   useEffect(() => {
     if (id) getItem({ variables: { id } })
-  }, [id])
+  }, [id, getItem])
 
   if (type !== 'create' && type !== 'edit') {
     history.push('/404')
@@ -74,7 +74,13 @@ export default function Form(props) {
     }
   }
 
-  return <ItemForm type={type} initialValues={data} onSubmit={submitHandler} />
+  return (
+    <div style={{ maxWidth: 1450 }}>
+      <div style={{ maxWidth: 523, marginLeft: 111, marginRight: 20 }}>
+        <ItemForm type={type} initialValues={data} onSubmit={submitHandler} />
+      </div>
+    </div>
+  )
 }
 
 const CREATE_ITEM = gql`
